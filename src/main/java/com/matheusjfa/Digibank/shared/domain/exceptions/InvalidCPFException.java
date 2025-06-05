@@ -1,4 +1,4 @@
-package com.matheusjfa.Digibank.domain.exceptions;
+package com.matheusjfa.Digibank.shared.domain.exceptions;
 
 public class InvalidCPFException extends RuntimeException {
     public InvalidCPFException(String message) {

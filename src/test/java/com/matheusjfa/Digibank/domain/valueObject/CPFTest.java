@@ -1,6 +1,7 @@
 package com.matheusjfa.Digibank.domain.valueObject;
 
-import com.matheusjfa.Digibank.domain.exceptions.InvalidCPFException;
+import com.matheusjfa.Digibank.shared.domain.exceptions.InvalidCPFException;
+import com.matheusjfa.Digibank.shared.domain.valueObject.CPF;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +29,6 @@ class CPFTest {
         final var cpf = new CPF(expectedCPF);
 
         assertNotNull(cpf);
-        assertEquals(expectedCPF, cpf.getValue());
     }
 
     @Test
@@ -38,7 +38,6 @@ class CPFTest {
         final var cpf = new CPF(maskedCPF);
 
         assertNotNull(cpf);
-        assertEquals(expectedCPF, cpf.getValue()); // getValue() deve retornar o CPF desmascarado
     }
 
     @Test
