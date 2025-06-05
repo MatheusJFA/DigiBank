@@ -7,7 +7,7 @@ Organizado por épicos e milestones para guiar o desenvolvimento do sistema mono
 ## 🗂️ EPIC 1: Infraestrutura base e fundação do projeto
 
 ### 🎯 Milestone: Inicialização e preparação
-- [ ] `#1` Criar repositório no GitHub com nome `banco-vitrine`
+- [ ] `#1` Criar repositório no GitHub com nome `Digibank`
 - [ ] `#2` Gerar projeto base via Spring Initializr
 - [ ] `#3` Criar estrutura de diretórios com base na Clean Architecture
 - [ ] `#4` Configurar `pom.xml` com todas as dependências

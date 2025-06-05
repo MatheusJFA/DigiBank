@@ -34,7 +34,7 @@ O sistema utiliza **Clean Architecture** e está dividido em quatro camadas prin
 ## 📁 Estrutura do Projeto
 
 ```bash
-. Modulo
+. Modulo (bank, broker, points, shared)
 ├── domain
 │   └── model, repository, enums
 ├── application
