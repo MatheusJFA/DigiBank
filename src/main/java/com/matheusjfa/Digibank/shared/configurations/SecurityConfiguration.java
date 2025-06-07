@@ -1,6 +1,6 @@
 package com.matheusjfa.Digibank.shared.configurations;
 
-import com.matheusjfa.Digibank.shared.security.JWTCustonAuthenticationFilter;
+import com.matheusjfa.Digibank.shared.security.JWTCustomAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,7 +18,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            JWTCustonAuthenticationFilter jwtCustonAuthenticationFilter
+            JWTCustomAuthenticationFilter jwtCustonAuthenticationFilter
     ) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
