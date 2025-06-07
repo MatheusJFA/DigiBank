@@ -10,7 +10,11 @@ import java.io.IOException;
 
 public class JWTCustonAuthenticationFilter extends OncePerRequestFilter {
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
         // Aqui você pode implementar a lógica de autenticação JWT
         // Por exemplo, verificar o token JWT no cabeçalho Authorization
 
