@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class DigibankApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DigibankApplication.class, args);
