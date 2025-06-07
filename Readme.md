@@ -1,4 +1,4 @@
-# 💼 Banco Digital - Vitrine Técnica
+# 💼 Digibank - Vitrine Técnica
 
 Este projeto é uma vitrine técnica de um sistema bancário completo, simulando um ambiente com **Banco Digital**, **Corretora de Investimentos** e **Programa de Pontos**, construído com foco em Clean Architecture, modularização e boas práticas de engenharia de software.
 
