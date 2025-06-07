@@ -33,7 +33,6 @@ class CPFTest {
 
     @Test
     public void givenAValidMaskedCPF_whenCreatingIt_thenShouldReturnAValidCPF() {
-        final String expectedCPF = "12345678909";
         final String maskedCPF = "123.456.789-09";
         final var cpf = new CPF(maskedCPF);
 
