@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +19,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            JWTCustomAuthenticationFilter jwtCustonAuthenticationFilter
+            JWTCustomAuthenticationFilter jwtCustomAuthenticationFilter
     ) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -36,7 +37,7 @@ public class SecurityConfiguration {
                             authorize.anyRequest().authenticated();
                         }
                 )
-                .addFilter(jwtCustonAuthenticationFilter)
+                .addFilterAfter(jwtCustomAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
