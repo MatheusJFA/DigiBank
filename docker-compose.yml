@@ -39,7 +39,7 @@ services:
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000]
+      ZOOKEEPER_TICK_TIME: 2000
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "2181" ]
       interval: 10s
@@ -79,7 +79,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/banco_digital
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/digibank
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_REDIS_HOST: redis
