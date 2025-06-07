@@ -11,20 +11,19 @@ server:
   # ======================
   # Banco de Dados
   # ======================
+
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/digibank}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-      show-sql: true
       properties:
-        hibernate:
-          format_sql: true
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate.format_sql: true
+
   # ======================
   # Redis
   # ======================
@@ -72,6 +71,16 @@ management:
 # Configurações de Log
 # ======================
 logging:
+  pattern:
+    console: '%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n'
+  file:
+    name: app.log
   level:
+    root: warn
+    io:
+      github:
+        cursodsousa: trace
     org:
-      springframework: INFO
+      springframework:
+        web: debug
+        security: trace
