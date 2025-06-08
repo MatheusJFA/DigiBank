@@ -27,7 +27,6 @@ O sistema utiliza **Clean Architecture** e está dividido em quatro camadas prin
 - **Apache Kafka**
 - **Spring Security (JWT)**
 - **Testcontainers**
-- **Lombok**
 - **Swagger/OpenAPI**
 ---
 
