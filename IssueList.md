@@ -7,12 +7,12 @@ Organizado por épicos e milestones para guiar o desenvolvimento do sistema mono
 ## 🗂️ EPIC 1: Infraestrutura base e fundação do projeto
 
 ### 🎯 Milestone: Inicialização e preparação
-- [ ] `#1` Criar repositório no GitHub com nome `Digibank`
-- [ ] `#2` Gerar projeto base via Spring Initializr
+- [X] `#1` Criar repositório no GitHub com nome `Digibank`
+- [X] `#2` Gerar projeto base via Spring Initializr
 - [ ] `#3` Criar estrutura de diretórios com base na Clean Architecture
-- [ ] `#4` Configurar `pom.xml` com todas as dependências
-- [ ] `#5` Criar `README.md` com visão geral, arquitetura e tecnologias
-- [ ] `#6` Criar `docker-compose.yml` com PostgreSQL, Redis, Kafka, Prometheus, Grafana
+- [X] `#4` Configurar `pom.xml` com todas as dependências
+- [X] `#5` Criar `README.md` com visão geral, arquitetura e tecnologias
+- [X] `#6` Criar `docker-compose.yml` com PostgreSQL, Redis, Kafka, Prometheus, Grafana
 - [ ] `#7` Criar `application.yml` com perfis dev, test e prod
 - [ ] `#8` Configurar CI com GitHub Actions (`build`, `test`, `jacoco`, `docker`)
 
