@@ -1,4 +1,4 @@
-package com.matheusjfa.Digibank.domain.valueObject;
+package com.matheusjfa.Digibank.shared.domain.valueObject;
 
 import com.matheusjfa.Digibank.shared.domain.exceptions.InvalidCPFException;
 import com.matheusjfa.Digibank.shared.domain.valueObject.CPF;
