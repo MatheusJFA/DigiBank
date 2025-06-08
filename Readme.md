@@ -43,7 +43,7 @@ O sistema utiliza **Clean Architecture** e está dividido em quatro camadas prin
 ├── presentation
 │   └── controller, filter, exception, presenters
 │
-├── shared
+├── shared (Elementos ou recursos compartilhados)
 │   └── configurations, kafka, redis...
 ├── docker-compose.yml
 ├── application.yml
