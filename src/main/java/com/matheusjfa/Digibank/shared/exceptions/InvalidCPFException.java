@@ -1,7 +1,13 @@
 package com.matheusjfa.Digibank.shared.exceptions;
 
+import java.io.Serial;
+
 public class InvalidCPFException extends RuntimeException {
-		public InvalidCPFException(String message) {
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+	public InvalidCPFException(String message) {
 				super(message);
 		}
 }
+

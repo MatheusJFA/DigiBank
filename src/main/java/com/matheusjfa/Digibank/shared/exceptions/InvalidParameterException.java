@@ -2,11 +2,11 @@ package com.matheusjfa.Digibank.shared.exceptions;
 
 import java.io.Serial;
 
-public class InvalidEmailException extends RuntimeException {
+public class InvalidParameterException extends RuntimeException {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	public InvalidEmailException(String message) {
+	public InvalidParameterException(String message) {
 		super(message);
 	}
 }
