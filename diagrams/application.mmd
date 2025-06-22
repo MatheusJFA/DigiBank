@@ -3,13 +3,20 @@ classDiagram
 
 %% Entidades Principais
     class User {
-        +Long id
+        +UUID id
         +String name
         +String cpf
         +String email
-        +String password
-        +LocalDate birthDate
-        +boolean active
+        +String password_hash
+        +String phone
+        +Date birth_date
+        +Boolean active
+        +String role
+        +Timestamp last_login
+        +String created_by
+        +Timestamp created_at
+        +String updated_by
+        +Timestamp updated_at
     }
 
     class BankAccount {
