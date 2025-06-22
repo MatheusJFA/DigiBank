@@ -4,6 +4,7 @@ import com.matheusjfa.Digibank.shared.enums.Role;
 import com.matheusjfa.Digibank.shared.exceptions.InvalidParameterException;
 import com.matheusjfa.Digibank.shared.valueObjects.CPF;
 import com.matheusjfa.Digibank.shared.valueObjects.Email;
+import com.matheusjfa.Digibank.shared.valueObjects.Phone;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,8 +45,9 @@ public class User extends Auditory implements UserDetails {
 	@Column(nullable = false)
 	private String passwordHash;
 
+	@Embedded
 	@Column(length = 20)
-	private String phone;
+	private Phone phone;
 
 	@Column(nullable = false)
 	private LocalDate birthDate;
@@ -59,7 +61,7 @@ public class User extends Auditory implements UserDetails {
 
 	private LocalDateTime lastLogin;
 
-	private User(UUID id, String name, CPF cpf, Email email, String passwordHash, String phone, LocalDate birthDate, boolean active, Role role, LocalDateTime lastLogin) {
+	private User(UUID id, String name, CPF cpf, Email email, String passwordHash, Phone phone, LocalDate birthDate, boolean active, Role role, LocalDateTime lastLogin) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
@@ -72,22 +74,23 @@ public class User extends Auditory implements UserDetails {
 		this.lastLogin = lastLogin;
 	}
 
-	public static User create(String name, String cpfValue, String emailValue, String passwordHash, String phone, LocalDate birthDate, Role role) {
+	public static User create(String name, String cpfValue, String emailValue, String passwordHash, String phoneValue, LocalDate birthDate, Role role) {
 		var id = UUID.randomUUID();
 		var cpf = new CPF(cpfValue);
 		var email = new Email(emailValue);
+		var phone = new Phone(phoneValue);
 
 		var isActive = true; // Default value for new users
 
 		return new User(id, name, cpf, email, passwordHash, phone, birthDate, isActive, role, null);
 	}
 
-	public User update(String name, String cpfValue, String emailValue, String phone, LocalDate birthDate) {
-		validateParameters(name, cpfValue, emailValue, phone, birthDate);
+	public User update(String name, String cpf, String email, String phone, LocalDate birthDate) {
+		validateParameters(name, cpf, email, phone, birthDate);
 		this.name = name;
-		this.cpf = new CPF(cpfValue);
-		this.email = new Email(emailValue);
-		this.phone = phone;
+		this.cpf = new CPF(cpf);
+		this.email = new Email(email);
+		this.phone = new Phone(phone);
 		this.birthDate = birthDate;
 
 		return this;
@@ -115,8 +118,8 @@ public class User extends Auditory implements UserDetails {
 
 	private void validateParameters(Object... parameters)  {
 		for (Object parameter : parameters) {
-			if (parameter == null || parameter.toString().isBlank()) {
-				throw new InvalidParameterException("O parametro " + parameter + " não pode ser nulo ou vazio.");
+			if (parameter == null || (parameter instanceof String && ((String) parameter).isBlank())) {
+				throw new InvalidParameterException("Não pode fazer a atualização com valores nulos ou vazios");
 			}
 		}
 	}
@@ -142,7 +145,7 @@ public class User extends Auditory implements UserDetails {
 	}
 
 	public String getPhone() {
-		return phone;
+		return phone.getValue();
 	}
 
 	public LocalDate getBirthDate() {
