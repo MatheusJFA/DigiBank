@@ -1,0 +1,140 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1.0-complete-users-table-uuid
+      author: Matheus José F. de Aguiar
+      changes:
+        # Pré-requisitos (extensão UUID)
+        - sql:
+            dbms: postgresql
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+              COMMENT ON EXTENSION "uuid-ossp" IS 'Fornece funções para geração de UUIDs';
+
+        # Criação da tabela principal
+        - createTable:
+            tableName: users
+            remarks: "Tabela principal de usuários com UUID como PK"
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed:
+                    postgresql: uuid_generate_v4()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  remarks: "Identificador único universal (UUID v4)"
+
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                  remarks: "Nome completo do usuário"
+
+              - column:
+                  name: cpf
+                  type: CHAR(11)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_users_cpf
+                  remarks: "CPF sem pontuação (11 dígitos)"
+
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: "E-mail válido (único por usuário)"
+
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                  remarks: "Hash bcrypt da senha"
+
+              - column:
+                  name: phone
+                  type: VARCHAR(20)
+                  remarks: "Telefone com DDD (opcional)"
+
+              - column:
+                  name: birth_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+                  remarks: "Data de nascimento"
+
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValue: true
+                  constraints:
+                    nullable: false
+                  remarks: "Indica se o usuário está ativo"
+
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  defaultValue: 'USER'
+                  constraints:
+                    nullable: false
+                  remarks: "Papel do usuário (ex: USER, ADMINISTRATOR)"
+
+              - column:
+                    name: last_login
+                    type: TIMESTAMP
+                    constraints:
+                        nullable: true
+                    remarks: "Data e hora do último login"
+
+              - column:
+                  name: created_by
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                  remarks: "Usuário que criou o registro"
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+                  remarks: "Data de criação do registro"
+
+              - column:
+                    name: updated_by
+                    type: VARCHAR(50)
+                    constraints:
+                        nullable: true
+                    remarks: "Usuário que atualizou o registro"
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+                  remarks: "Data da última atualização"
+
+        # Índices para performance
+        - createIndex:
+            indexName: idx_users_email
+            tableName: users
+            unique: true
+            columns:
+              - column:
+                  name: email
+                  descending: false
+
+        - createIndex:
+            indexName: idx_users_cpf
+            tableName: users
+            unique: true
+            columns:
+              - column:
+                  name: cpf
