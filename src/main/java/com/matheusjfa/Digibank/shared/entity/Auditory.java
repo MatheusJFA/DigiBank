@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @MappedSuperclass
-public class auditory {
+public class Auditory {
 	@CreatedBy
 	@Column(name = "created_by", nullable = false, updatable = false)
 	protected UUID createdBy;
