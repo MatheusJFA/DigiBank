@@ -24,6 +24,7 @@ public class CPFTest {
 	 * 6. Dado um CPF com caracteres repetidos (ex: "11111111111"), quando criado, então deve lançar uma exceção InvalidCPFException.
 	 * 7. Dado um CPF com dígitos verificadores inválidos, quando criado, então deve lançar uma exceção InvalidCPFException.
 	 * 8. Dado um CPF com caracteres especiais, porém inválido, quando criado, então deve lançar uma exceção InvalidCPFException.
+	 * 9. Dado um CPF válido ao chamar o método `mask()`, então deve retornar o CPF formatado.
 	 * * Exemplos de CPF válidos:
 	 *  - "12345678909"
 	 *  - "123.456.789-09"
@@ -198,6 +199,20 @@ public class CPFTest {
 		// Assert
 		String expectedMessage = "O CPF informado é inválido";
 		assertEquals(expectedMessage, exception.getMessage());
+	}
+
+	@Test
+	public void givenAValidCPF_whenMasked_thenShouldReturnFormattedCPF() {
+		// Arrange
+		String validCPF = "12345678909"; // Exemplo de CPF válido
+		CPF cpf = new CPF(validCPF);
+
+		// Act
+		String maskedCPF = cpf.mask();
+
+		// Assert
+		String expectedMaskedCPF = "123.456.789-09";
+		assertEquals(expectedMaskedCPF, maskedCPF); // Verifica se o CPF foi formatado corretamente
 	}
 
 }
