@@ -68,4 +68,8 @@ public class CPF {
 	public String getValue() {
 		return value;
 	}
+
+	public String mask() {
+		return value.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+	}
 }
