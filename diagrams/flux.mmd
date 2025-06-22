@@ -1,0 +1,31 @@
+%% Diagrama de Componentes Spring Boot
+flowchart TD
+    A[Clientes] --> B[API REST]
+    B --> C[Controllers]
+    C --> D[Services]
+    D --> E[Repositories]
+    E --> F[Database]
+
+    subgraph Spring Boot Application
+        C -->|BankAccountController| D1[BankAccountService]
+        C -->|InvestmentController| D2[InvestmentService]
+        C -->|LoyaltyController| D3[LoyaltyService]
+
+        D1 --> E1[BankAccountRepository]
+        D2 --> E2[InvestmentRepository]
+        D3 --> E3[LoyaltyRepository]
+
+        D1 --> D2
+        D1 --> D3
+    end
+
+    E1 --> F[(PostgreSQL)]
+    E2 --> F
+    E3 --> F
+
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style C fill:#9f9,stroke:#333
+    style D fill:#f96,stroke:#333
+    style E fill:#69f,stroke:#333
+    style F fill:#6f9,stroke:#333
