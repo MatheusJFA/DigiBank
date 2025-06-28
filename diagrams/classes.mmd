@@ -1,0 +1,98 @@
+%% Diagrama de Classe Simplificado
+classDiagram
+
+%% Entidades Principais
+class User {
++UUID id
++String name
++String cpf
++String email
++String password_hash
++String phone
++Date birth_date
++Boolean active
++String role
++Timestamp last_login
++String created_by
++Timestamp created_at
++String updated_by
++Timestamp updated_at
+}
+
+    class BankAccount {
+        +Long id
+        +String accountNumber
+        +String agency
+        +AccountType type
+        +BigDecimal balance
+        +boolean active
+    }
+
+    class Transaction {
+        +Long id
+        +BigDecimal amount
+        +TransactionType type
+        +LocalDateTime timestamp
+    }
+
+    class Investment {
+        +Long id
+        +InvestmentType type
+        +String code
+        +BigDecimal amountInvested
+    }
+
+    class LoyaltyProgram {
+        +Long id
+        +Integer points
+        +Integer tier
+    }
+
+    class Card {
+        +Long id
+        +String cardNumber
+        +CardType type
+        +BigDecimal creditLimit
+    }
+
+%% Relacionamentos
+User "1" --> "*" BankAccount : possui
+User "1" --> "1" LoyaltyProgram : participa
+User "1" --> "*" Card : possui
+
+    BankAccount "1" --> "*" Transaction : contém
+    BankAccount "1" --> "*" Investment : vincula
+
+    LoyaltyProgram "1" --> "*" Transaction : acumula
+
+    User "1" --> "1" InvestmentWallet : tem
+    InvestmentWallet "1" --> "*" Investment : contém
+
+%% Enums
+class AccountType {
+<<enum>>
+CORRENTE
+POUPANCA
+SALARIO
+}
+
+    class TransactionType {
+        <<enum>>
+        DEPOSITO
+        SAQUE
+        TRANSFERENCIA
+    }
+
+    class InvestmentType {
+        <<enum>>
+        ACAO
+        FUNDO
+        TESOURO
+    }
+
+    class CardType {
+        <<enum>>
+        CREDITO
+        DEBITO
+        MULTIPLO
+    }
