@@ -1,0 +1,150 @@
+# Application configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:secret} # Um segredo em Base64  (min 256 bits)
+    expiration-ms: 86400000 # 24 horas (in milliseconds)
+    refresh-expiration-ms: 604800000 # 7 dias (in milliseconds)
+  cors:
+    allowed-origins: "http://localhost:3000,http://127.0.0.1:3000"
+    allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+    allowed-headers: "*"
+    max-age: 3600
+
+# Spring configuration
+spring:
+  # Application metadata
+  application:
+    name: digibank-app
+  output:
+    ansi:
+      enabled: always # Deixa o console colorido
+
+  # Database configuration
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:digibank_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  # JPA/Hibernate configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+      use-new-id-generator-mappings: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        order_inserts: true
+        order_updates: true
+        batch_size: 30
+        timezone: America/Sao_Paulo # Deixa Sao Paulo como timezone padr?o
+
+
+  # Redis configuration
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:} # Vazio se n?o houver senha
+    timeout: 5000 # 5 seconds
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 5
+        min-idle: 1
+        max-wait: 3000 # 3 seconds
+
+  # Cache configuration
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000 # 10 minutos (cache expiration)
+      key-prefix: "digibank:cache:"
+      use-key-prefix: true
+      cache-null-values: false
+
+  # Kafka configuration
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      compression-type: gzip
+    consumer:
+      group-id: digibank-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 500
+      fetch-max-wait: 500
+      fetch-min-size: 1
+    listener:
+      missing-topics-fatal: false
+      ack-mode: manual
+
+  # Actuator configuration
+  management:
+    endpoint:
+      health:
+        show-details: always
+        probes:
+          enabled: true
+    endpoints:
+      web:
+        exposure:
+          include: "health,info,metrics,prometheus"
+    metrics:
+      tags:
+        application: digibank-app
+      distribution:
+        percentiles-histogram:
+          enabled: true
+    health:
+      redis:
+        enabled: true
+        timeout: 2000 # 2 segundos
+      db:
+        enabled: true
+      diskspace:
+        enabled: true
+      kafka:
+        enabled: true
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate: WARN
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.kafka: DEBUG
+    com.MatheusJFA.Digibank: DEBUG
+  file:
+    name: logs/application.log
+    max-history: 30
+    max-size: 50MB
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15t]){faint} %clr(%-40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+
+# Swagger configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
