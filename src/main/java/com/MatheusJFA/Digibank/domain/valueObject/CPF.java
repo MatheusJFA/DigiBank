@@ -4,6 +4,7 @@ import com.MatheusJFA.Digibank.shared.exceptions.InvalidCPFException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Transient;
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.io.Serial;
@@ -26,7 +27,6 @@ public class CPF implements Serializable {
 
     @Transient
     private final static int CPF_LENGTH = 11;
-
 
     @Column(name = "cpf", nullable = false, unique = true, length = CPF_LENGTH)
     private String value;
