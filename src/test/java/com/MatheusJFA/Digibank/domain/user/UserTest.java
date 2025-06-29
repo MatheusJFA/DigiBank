@@ -108,6 +108,7 @@ public class UserTest {
         final var expectedPassword = "password123";
         final var expectedBirthDate = LocalDate.of(1990, 1, 1);
         final var expectedRole = Role.USER;
+
         // Act & Assert
         Exception exception = assertThrows(InvalidPhoneException.class, () -> {
             User.create(expectedName, expectedPassword, expectedEmail, expectedCpf, invalidPhone, expectedBirthDate, expectedRole);

@@ -29,6 +29,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return new User(
                 user.getId().toString(),
                 null,
-                user.getAuthorities());
+                user.getAuthorities()
+        );
     }
 }

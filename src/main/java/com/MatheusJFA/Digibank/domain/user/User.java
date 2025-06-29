@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
@@ -67,7 +68,8 @@ public class User extends BaseEntity implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> this.role.name());
+        log.info("Obtendo autoridades de {} para o usuário {}", this.role, this.getId());
+        return List.of((new SimpleGrantedAuthority(this.role.name())));
     }
 
     @Override
