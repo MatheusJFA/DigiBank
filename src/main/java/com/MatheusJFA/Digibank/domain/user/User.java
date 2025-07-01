@@ -114,6 +114,22 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         }
     }
 
+    public static User with(String name, String passwordHash, String email, String cpf, String phone, LocalDate birthDate, Role role) {
+        return new User(name, passwordHash, email, cpf, phone, birthDate, role);
+    }
+
+    public static User with(User user) {
+        return new User(
+                user.getName(),
+                user.getPasswordHash(),
+                user.getEmail().getValue(),
+                user.getCpf().getValue(),
+                user.getPhone().getValue(),
+                user.getBirthDate(),
+                user.getRole()
+        );
+    }
+
     public void changePassword(String newPassword) {
         // A senha deve ser criptografada antes de ser definida
         validateParameters(newPassword);
