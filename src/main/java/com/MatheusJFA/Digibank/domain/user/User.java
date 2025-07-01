@@ -69,7 +69,7 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         log.info("Obtendo autoridades de {} para o usuário {}", this.role, this.getId());
-        return List.of((new SimpleGrantedAuthority(this.role.name())));
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override
@@ -112,9 +112,11 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         this.birthDate = birthDate;
         this.isActive = true; // Usuário ativo por padrão
         this.role = role;
+
         log.info("Usuário {} criado com sucesso.", this.getId());
     }
 
+    // Factory method para criar um novo usuário
     public static User create(String name, String passwordHash, String email, String cpf, String phone, LocalDate birthDate, Role role) {
         return new User(name, passwordHash, email, cpf, phone, birthDate, role);
     }
