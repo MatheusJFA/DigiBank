@@ -19,6 +19,7 @@ public class PhoneTest {
      * 5. Dado um telefone com formatação inválida (ex: "1234567890"), quando tentar criá-lo, então deve lançar uma exceção InvalidPhoneException.
      * 6. Dado um telefone válido, quando chamado o método mask, então deve retornar o telefone com a formatação correta (ex: "+55 (11) 91234-5678").
      * 7. Dado um telefone válido, quando chamado o método unmask, então deve retornar o telefone sem formatação (ex: "5511912345678").
+     * 8. Dado um telefone válido, quando chamado o método getDDI e getDDD, então deve retornar os valores corretos (ex: DDI = "55", DDD = "11") e falar que o país é Brasil.
      */
 
     @ParameterizedTest
@@ -105,6 +106,20 @@ public class PhoneTest {
         assertEquals("55", ddi);
         assertEquals("31", ddd);
         assertEquals(phoneNumber, phone.getNumber()); // Verifica se o número está correto
+    }
+
+    @Test
+    public void givenAValidPhone_whenGetCountry_thenShouldReturnCorrectCountry() {
+        // Arrange
+        String input = "+55 (31) 98765-4321";
+        Phone phone = new Phone(input);
+
+        // Act
+        String country = phone.getCountry();
+
+        // Assert
+        String expectedCountry = "Brasil";
+        assertEquals(expectedCountry, country);
     }
 
 }
