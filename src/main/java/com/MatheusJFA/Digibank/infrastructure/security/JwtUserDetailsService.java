@@ -1,6 +1,6 @@
 package com.MatheusJFA.Digibank.infrastructure.security;
 
-import com.MatheusJFA.Digibank.domain.user.UserRepository;
+import com.MatheusJFA.Digibank.domain.user.UserGateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,15 +12,15 @@ import java.util.UUID;
 @Slf4j
 public class JwtUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserGateway userGateway;
 
-    public JwtUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public JwtUserDetailsService(UserGateway userRepository) {
+        this.userGateway = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        final var user = userRepository.findById(UUID.fromString(id))
+        final var user = userGateway.findById(UUID.fromString(id))
                 .orElseThrow(() -> {
                     log.error("Usuário não encontrado com o ID: {}", id);
                     return new UsernameNotFoundException("Usuário não encontrado com o ID: " + id);
