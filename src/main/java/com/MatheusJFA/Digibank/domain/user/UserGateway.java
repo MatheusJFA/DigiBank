@@ -14,6 +14,7 @@ public interface UserGateway {
     Optional<User> findById(UUID id);
     Optional<User> findByEmail(String email);
     Optional<User> findByCpf(String cpf);
+    Optional<User> findByPhone(String phone);
 
     // Busca todos os usuários
     Page<User> findAll(Pageable pageable);
