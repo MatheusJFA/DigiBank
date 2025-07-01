@@ -3,26 +3,18 @@ package com.MatheusJFA.Digibank.domain.valueObject;
 import com.MatheusJFA.Digibank.domain.dictionaries.CountryCodes;
 import com.MatheusJFA.Digibank.shared.exceptions.InvalidPhoneException;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@Embeddable
 @Getter
 public class Phone implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Transient
     private final String PHONE_REGEX = "^\\+\\d{2,3}\\s\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$";
-
-    @Transient
     private final int MIN_LENGTH = 12;
-
-    @Transient
     private final int MAX_LENGTH = 13;
 
     @Column(name = "phone", nullable = false, unique = true, length = 13)

@@ -2,30 +2,22 @@ package com.MatheusJFA.Digibank.domain.valueObject;
 
 import com.MatheusJFA.Digibank.shared.exceptions.InvalidCPFException;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
-import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@Embeddable
 @Getter
 public class CPF implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Transient
     private final static String CPF_SAME_DIGITS_REGEX = "(\\d)\\1{10}";
 
-    @Transient
     private final static String CPF_UNMASK = "[^0-9]";
 
-    @Transient
     private final static String CPF_MASK = "(\\d{3})(\\d{3})(\\d{3})(\\d{2})";
 
-    @Transient
     private final static int CPF_LENGTH = 11;
 
     @Column(name = "cpf", nullable = false, unique = true, length = CPF_LENGTH)

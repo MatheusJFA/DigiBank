@@ -2,9 +2,7 @@ package com.MatheusJFA.Digibank.domain.valueObject;
 
 
 import com.MatheusJFA.Digibank.shared.exceptions.InvalidCreditCardException;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serial;
@@ -12,21 +10,17 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Locale;
 
-@Embeddable
+@Getter
 public class CreditCard implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "card_number", nullable = false, length = 19)
     private String cardNumber;
 
-    @Column(name = "card_holder_name", nullable = false, length = 30)
     private String cardHolderName;
 
-    @Column(name = "expiration_date", nullable = false, length = 5)
     private String expirationDate;
 
-    @Column(name = "cvv", nullable = false, length = 3)
     private String cvv;
 
     public CreditCard() {

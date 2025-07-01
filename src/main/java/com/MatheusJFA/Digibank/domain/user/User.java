@@ -6,11 +6,8 @@ import com.MatheusJFA.Digibank.domain.valueObject.Email;
 import com.MatheusJFA.Digibank.domain.valueObject.Phone;
 import com.MatheusJFA.Digibank.shared.base.BaseEntity;
 import com.MatheusJFA.Digibank.shared.exceptions.InvalidFieldException;
-import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,67 +19,43 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "users",
-        indexes = {
-                @Index(name = "idx_users_email", columnList = "email", unique = true),
-                @Index(name = "idx_users_cpf", columnList = "cpf", unique = true)
-        }
-)
 @Getter
-@NoArgsConstructor
-@DynamicUpdate
 @Slf4j
 public class User extends BaseEntity implements UserDetails, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "name", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "password_hash", nullable = false, length = 100)
     private String passwordHash;
 
-    @Embedded
     private Email email;
 
-    @Embedded
     private CPF cpf;
 
-    @Embedded
     private Phone phone;
 
-    @Column(name="birth_date", nullable = false)
-    @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
 
-    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @Column(nullable = false, length = 20)
-    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         log.info("Obtendo autoridades de {} para o usuário {}", this.role, this.getId());
         return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
-    @Override
     public String getPassword() {
         return "";
     }
 
-    @Override
     public String getUsername() {
         return this.getId().toString();
     }
 
-    @Override
     public boolean isEnabled() {
         return this.isActive;
     }
