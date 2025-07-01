@@ -11,13 +11,13 @@ import java.util.List;
 
 @Configuration
 public class CORSConfiguration {
-    @Value("${cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
 
-    @Value("${cors.allowed-methods}")
+    @Value("${app.cors.allowed-methods}")
     private String allowedMethods;
 
-    @Value("${cors.allowed-headers}")
+    @Value("${app.cors.allowed-headers}")
     private String allowedHeaders;
 
     @Bean
