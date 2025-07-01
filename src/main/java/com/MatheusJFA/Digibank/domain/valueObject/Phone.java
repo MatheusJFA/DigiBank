@@ -1,5 +1,6 @@
 package com.MatheusJFA.Digibank.domain.valueObject;
 
+import com.MatheusJFA.Digibank.domain.dictionaries.CountryCodes;
 import com.MatheusJFA.Digibank.shared.exceptions.InvalidPhoneException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -16,7 +17,7 @@ public class Phone implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Transient
-    private final String PHONE_REGEX = "^\\+\\d{2}\\s\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$";
+    private final String PHONE_REGEX = "^\\+\\d{2,3}\\s\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$";
 
     @Transient
     private final int MIN_LENGTH = 12;
@@ -70,5 +71,10 @@ public class Phone implements Serializable {
 
     public String getNumber() {
         return value.substring(4);
+    }
+
+    public String getCountry() {
+        final var ddi = Integer.parseInt(getDDI());
+        return CountryCodes.getCountryByAreaCode(ddi);
     }
 }
